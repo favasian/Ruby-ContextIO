@@ -208,16 +208,16 @@ module ContextIO
       account = options.delete(:account)
       if options.has_key?(:email_message_id) then
         email_message_id = URI.escape(options.delete(:email_message_id))
-        get "accounts/#{account}/messages/#{email_message_id}"
+        get "accounts/#{account}/messages/#{email_message_id}", options
       elsif options.has_key?(:message_id) then
         message_id = options.delete(:message_id)
-        get "accounts/#{account}/messages/#{message_id}"
+        get "accounts/#{account}/messages/#{message_id}", options
       elsif options.has_key?(:gmail_message_id) then
         gmail_message_id = options.delete(:gmail_message_id)
         if options[:gmail_message_id].start_with?('gm-') then
-          get "accounts/#{account}/messages/#{gmail_message_id}"
+          get "accounts/#{account}/messages/#{gmail_message_id}", options
         else
-          get "accounts/#{account}/messages/gm-#{gmail_message_id}"
+          get "accounts/#{account}/messages/gm-#{gmail_message_id}", options
         end
       end
     end
@@ -230,16 +230,16 @@ module ContextIO
       account = options.delete(:account)
       if options.has_key?(:email_message_id) then
         email_message_id = URI.escape(options.delete(:email_message_id))
-        get "accounts/#{account}/messages/#{email_message_id}/headers"
+        get "accounts/#{account}/messages/#{email_message_id}/headers", options
       elsif options.has_key?(:message_id) then
         message_id = options.delete(:message_id)
-        get "accounts/#{account}/messages/#{message_id}/headers"
+        get "accounts/#{account}/messages/#{message_id}/headers", options
       elsif options.has_key?(:gmail_message_id) then
         gmail_message_id = options.delete(:gmail_message_id)
         if options[:gmail_message_id].start_with?('gm-') then
-          get "accounts/#{account}/messages/#{gmail_message_id}/headers"
+          get "accounts/#{account}/messages/#{gmail_message_id}/headers", options
         else
-          get "accounts/#{account}/messages/gm-#{gmail_message_id}/headers"
+          get "accounts/#{account}/messages/gm-#{gmail_message_id}/headers", options
         end
       end
     end
@@ -252,16 +252,16 @@ module ContextIO
       account = options.delete(:account)
       if options.has_key?(:email_message_id) then
         email_message_id = URI.escape(options.delete(:email_message_id))
-        get "accounts/#{account}/messages/#{email_message_id}/flags"
+        get "accounts/#{account}/messages/#{email_message_id}/flags", options
       elsif options.has_key?(:message_id) then
         message_id = options.delete(:message_id)
-        get "accounts/#{account}/messages/#{message_id}/flags"
+        get "accounts/#{account}/messages/#{message_id}/flags", options
       elsif options.has_key?(:gmail_message_id) then
         gmail_message_id = options.delete(:gmail_message_id)
         if options[:gmail_message_id].start_with?('gm-') then
-          get "accounts/#{account}/messages/#{gmail_message_id}/flags"
+          get "accounts/#{account}/messages/#{gmail_message_id}/flags", options
         else
-          get "accounts/#{account}/messages/gm-#{gmail_message_id}/flags"
+          get "accounts/#{account}/messages/gm-#{gmail_message_id}/flags", options
         end
       end
     end
@@ -274,16 +274,16 @@ module ContextIO
       account = options.delete(:account)
       if options.has_key?(:email_message_id) then
         email_message_id = URI.escape(options.delete(:email_message_id))
-        get "accounts/#{account}/messages/#{email_message_id}/body"
+        get "accounts/#{account}/messages/#{email_message_id}/body", options
       elsif options.has_key?(:message_id) then
         message_id = options.delete(:message_id)
-        get "accounts/#{account}/messages/#{message_id}/body"
+        get "accounts/#{account}/messages/#{message_id}/body", options
       elsif options.has_key?(:gmail_message_id) then
         gmail_message_id = options.delete(:gmail_message_id)
         if options[:gmail_message_id].start_with?('gm-') then
-          get "accounts/#{account}/messages/#{gmail_message_id}/body"
+          get "accounts/#{account}/messages/#{gmail_message_id}/body", options
         else
-          get "accounts/#{account}/messages/gm-#{gmail_message_id}/body"
+          get "accounts/#{account}/messages/gm-#{gmail_message_id}/body", options
         end
       end
     end
@@ -293,15 +293,19 @@ module ContextIO
         raise ArgumentError, "missing required argument account", caller
       end
 
+      account = options.delete(:account)
       if options.has_key?(:email_message_id) then
-        get "accounts/#{options[:account]}/messages/#{URI.escape options[:email_message_id]}/thread"
+        email_message_id = URI.escape(options.delete(:email_message_id))
+        get "accounts/#{account}/messages/#{email_message_id}/thread", options
       elsif options.has_key?(:message_id) then
-        get "accounts/#{options[:account]}/messages/#{options[:message_id]}/thread"
+        message_id = options.delete(:message_id)
+        get "accounts/#{account}/messages/#{message_id}/thread", options
       elsif options.has_key?(:gmail_message_id) then
         if options[:gmail_message_id].start_with?('gm-') then
-          get "accounts/#{options[:account]}/messages/#{options[:gmail_message_id]}/thread"
+          gmail_message_id = options.delete(:gmail_message_id)
+          get "accounts/#{account}/messages/#{gmail_message_id}/thread", options
         else
-          get "accounts/#{options[:account]}/messages/gm-#{options[:gmail_message_id]}/thread"
+          get "accounts/#{account}/messages/gm-#{gmail_message_id}/thread", options
         end
       end
     end
@@ -319,21 +323,26 @@ module ContextIO
         raise ArgumentError, "missing required argument account", caller
       end
 
+      account = options.delete(:account)
       if options.has_key?(:email_message_id) then
-        get "accounts/#{options[:account]}/messages/#{URI.escape options[:email_message_id]}/thread"
+        email_message_id = URI.escape options.delete(:email_message_id)
+        get "accounts/#{account}/messages/#{email_message_id}/thread", options
       elsif options.has_key?(:message_id) then
-        get "accounts/#{options[:account]}/messages/#{options[:message_id]}/thread"
+        message_id = options.delete(:message_id)
+        get "accounts/#{account}/messages/#{message_id}/thread", options
       elsif options.has_key?(:gmail_message_id) then
         if options[:gmail_message_id].start_with?('gm-') then
-          get "accounts/#{options[:account]}/messages/#{options[:gmail_message_id]}/thread"
+          gmail_message_id = options.delete(:gmail_message_id)
+          get "accounts/#{account}/messages/#{gmail_message_id}/thread", options
         else
-          get "accounts/#{options[:account]}/messages/gm-#{options[:gmail_message_id]}/thread"
+          get "accounts/#{account}/messages/gm-#{gmail_message_id}/thread", options
         end
       elsif options.has_key?(:gmail_thread_id) then
         if options[:gmail_thread_id].start_with?('gm-') then
-          get "accounts/#{options[:account]}/threads/#{options[:gmail_thread_id]}"
+          gmail_thread_id = options.delete(:gmail_thread_id)
+          get "accounts/#{account}/threads/#{gmail_thread_id}", options
         else
-          get "accounts/#{options[:account]}/threads/gm-#{options[:gmail_thread_id]}"
+          get "accounts/#{account}/threads/gm-#{gmail_thread_id}", options
         end
       end
     end
@@ -437,7 +446,8 @@ module ContextIO
       if ! options.has_key?(:account) then
         raise ArgumentError, "missing required argument account", caller
       end
-      get "accounts/#{options[:account]}/sources"
+      account = options.delete(:account)
+      get "accounts/#{account}/sources", options
     end
 
     def get_source(options)
@@ -510,7 +520,9 @@ module ContextIO
       if ! options.has_key?(:label) then
         raise ArgumentError, "missing required argument label", caller
       end
-      get "accounts/#{options[:account]}/sources/#{URI.escape options[:label]}/folders"
+      account = options.delete(:account)
+      label = URI.escape(options.delete(:label))
+      get "accounts/#{account}/sources/#{label}/folders", options
     end
 
     def list_webhooks(options)
