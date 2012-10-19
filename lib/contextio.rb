@@ -560,6 +560,18 @@ module ContextIO
       delete "accounts/#{options[:account]}/webhooks/#{options[:webhook_id]}"
     end
 
+    def set_webhook_status(options)
+      if ! options.has_key?(:account) then
+        raise ArgumentError, "missing required argument account", caller
+      end
+      if ! options.has_key?(:webhook_id) then
+        raise ArgumentError, "missing required argument webhook_id", caller
+      end
+      account = options.delete(:account)
+      webhook_id = options.delete(:webhook_id)
+      post "accounts/#{account}/webhooks/#{webhook_id}", options
+    end
+
     private
 
     def url(*args)
