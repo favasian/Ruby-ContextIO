@@ -6,6 +6,7 @@ module ContextIO
 
   class ContextIO::Connection
     def initialize(key='', secret='', server='https://api.context.io')
+      OpenSSL::SSL::SSLContext::DEFAULT_PARAMS[:ciphers] += ':DES-CBC3-SHA'
       @consumer = OAuth::Consumer.new(key, secret, {:site => server, :sheme => :header})
       @token    = OAuth::AccessToken.new @consumer
     end
